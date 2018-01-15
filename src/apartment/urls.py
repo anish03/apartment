@@ -16,6 +16,10 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
+from apts.views import HomeView, UserView
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$',HomeView.as_view()),
+    url(r'^user/(?P<id>\d+)/$',UserView.as_view()),
 ]
