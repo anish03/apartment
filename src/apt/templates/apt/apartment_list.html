@@ -1,0 +1,15 @@
+
+{% extends "base.html" %}
+{% load staticfiles %}
+{%block content%}
+
+<div class="container">
+
+    {% for apt in apartments_list %}
+
+    <li>{{ apt.name }} || {{ apt.city }} || {{ apt.address }} || updated <strong>{{ apt.updated|timesince }}</strong> ago </li>
+
+    {% endfor %}
+</div>
+
+{%endblock%}
