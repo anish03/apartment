@@ -1,11 +1,14 @@
 from __future__ import unicode_literals
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.views import View
-from django.views.generic import TemplateView,ListView,DetailView
+from django.views.generic import TemplateView,ListView,DetailView,CreateView
 from django.db.models import Q
 from .models import apartment
+from .forms import apartmentForm
+
 
 class HomeView(TemplateView):
     template_name = 'home.html'
@@ -16,7 +19,6 @@ class HomeView(TemplateView):
 
 
 class ApartmentView(ListView):
-
     #template_name = 'apt/apartment_list.html'
     context_object_name = 'apartments_list'
 
@@ -25,7 +27,6 @@ class ApartmentView(ListView):
         return queryset
 
 class SearchApartmentView(ListView):
-
     template_name = 'apt/apartment_list.html'
     context_object_name = 'apartments_list'
 
@@ -41,14 +42,18 @@ class SearchApartmentView(ListView):
         return queryset
 
 class ApartmentDetailView(DetailView):
-
     queryset = apartment.objects.all()
 
-    # def get_context_data(self,*args,**kwargs):
-    #     context = super(ApartmentDetailView,self).get_context_data(*args, **kwargs)
-    #     return context
 
-    def get_object(self,*args,**kwargs):
-        apt_id = self.kwargs.get('apt_id')
-        obj = get_object_or_404(apartment,pk=apt_id)
-        return obj
+class ApartmentCreateView(LoginRequiredMixin,CreateView):
+    form_class = apartmentForm
+    template_name = 'apt/form.html'
+    success_url = '/apartments/'
+    login_url = '/login/'
+
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        instance.owner = self.request.user
+
+        return super(ApartmentCreateView, self).form_valid(form)
+

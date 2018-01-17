@@ -1,0 +1,30 @@
+
+{% extends "base.html" %}
+{%block content%}
+{% load widget_tweaks %}
+
+<style>
+    .form-control{
+        margin-bottom: 20px;
+    }
+</style>
+<!--
+        fields = ['name','city','address','rating','capacity','amenities']-->
+<h3>Add New Apartment</h3>
+
+   <form method="post"> {% csrf_token %}
+
+       {% for field in form.visible_fields %}
+          <div class="form-group container">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field|add_class:'form-control' }}
+            {% for error in field.errors %}
+              <span class="help-block alert alert-danger">{{ error }}</span>
+            {% endfor %}
+          </div>
+
+    {% endfor %}
+       <input style="margin-top:5px;" type="submit" value="Submit" class="btn btn-primary btn-lg btn-block">
+    </form>
+
+{%endblock%}

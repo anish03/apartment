@@ -7,8 +7,8 @@
 
     {% for apt in apartments_list %}
 
-    <li>{{ apt.name }} || {{ apt.city }} || {{ apt.address }} || updated <strong>{{ apt.updated|timesince }}</strong> ago </li>
-
+    <li> <a href="/apartments/{{ apt.slug }}"> {{ apt.name }} </a>|| {{ apt.city }} || {{ apt.address }} || updated <strong>{{ apt.updated|timesince }}</strong> ago </li>
+           <p>Created By: {{ apt.owner }}</p>
     {% endfor %}
 </div>
 
