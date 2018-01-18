@@ -3,9 +3,19 @@
 {%block content%}
 {% load widget_tweaks %}
 
+<script>
+navigator.geolocation.getCurrentPosition(function(location) {
+        var lat = location.coords.latitude;
+        var long = location.coords.longitude;
+        document.getElementById('id_lat').value = lat
+        document.getElementById('id_long').value = long
+    })
+</script>
+
 <style>
     .form-control{
         margin-bottom: 20px;
+        width : 500px;
     }
 </style>
 <!--
@@ -24,7 +34,8 @@
           </div>
 
     {% endfor %}
-       <input style="margin-top:5px;" type="submit" value="Submit" class="btn btn-primary btn-lg btn-block">
+       <button onclick="getLocation()" style="margin-top:5px; margin-left:15px;" type="submit" value="Submit" class="form-control btn btn-primary btn-lg">Submit</button>
     </form>
+    <div id="pp"></div>
 
 {%endblock%}

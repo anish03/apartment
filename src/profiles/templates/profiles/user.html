@@ -1,0 +1,20 @@
+
+{% extends "base.html" %}
+{% load staticfiles %}
+{%block content%}
+
+<div>
+<h3>{{ user.username }}</h3>
+
+<div class="container">
+
+    {% for apt in user.apartment_set.all %}
+    <div class="row">
+        <div class="col-sm-2" style="border:1px solid #ccc; border-radius: 5px; margin : 5px 5px 5px 5px;">
+            <a href="{{ apt.get_absolute_url }}"> {{ apt.name }}</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+</div>
+{%endblock%}

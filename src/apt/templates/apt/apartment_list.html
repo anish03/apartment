@@ -6,9 +6,13 @@
 <div class="container">
 
     {% for apt in apartments_list %}
+    <div class="row">
+        <div class="col-sm-12" style="border:1px solid #ccc; border-radius: 5px; margin : 5px 5px 5px 5px;">
+    <li> <a href="{{ apt.get_absolute_url }}"> {{ apt.name }} </a>|| {{ apt.city }} || {{ apt.address }} || updated <strong>{{ apt.updated|timesince }}</strong> ago
+           <br<p> || Created By: <a href="/profiles/{{ apt.owner }}">{{ apt.owner }}</a></p></li>
 
-    <li> <a href="/apartments/{{ apt.slug }}"> {{ apt.name }} </a>|| {{ apt.city }} || {{ apt.address }} || updated <strong>{{ apt.updated|timesince }}</strong> ago </li>
-           <p>Created By: {{ apt.owner }}</p>
+        </div>
+        </div>
     {% endfor %}
 </div>
 

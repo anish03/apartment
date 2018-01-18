@@ -6,7 +6,7 @@ from .models import apartment
 class apartmentForm(ModelForm):
     class Meta:
         model = apartment
-        fields = ['name','city','address','rating','capacity','amenities']
+        fields = ['name','city','address','rating','capacity','amenities','lat','long']
 
     def clean_name(self):
         name = self.cleaned_data.get('name')

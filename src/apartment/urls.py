@@ -16,17 +16,23 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from django.views.generic import TemplateView
-
-from apt.views import ApartmentView, SearchApartmentView,ApartmentDetailView,ApartmentCreateView
+from django.contrib.auth.views import LoginView,LogoutView
+from apt.views import ApartmentView, SearchApartmentView,ApartmentDetailView,ApartmentCreateView,ApartmentUpdateView,HomeView
+from profiles.views import ProfileDetailView, RegisterView
 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$',TemplateView.as_view(template_name='home.html')),
-    url(r'^apartments/$',ApartmentView.as_view()),
-    url(r'^apartments/create/$',ApartmentCreateView.as_view()),
-    #url(r'^apartments/(?P<slug>[\w|\W]+)/$',SearchApartmentView.as_view()),
+    url(r'^login/$',LoginView.as_view(),name='login'),
+    url(r'^logout/$',LogoutView.as_view(),name='logut'),
+    url(r'^register/$',RegisterView.as_view(),name='register'),
+    url(r'^$',HomeView.as_view(template_name='home.html'),name='home'),
+    url(r'^apartments/$',ApartmentView.as_view(),name='apartments'),
+    url(r'^apartments/create/$',ApartmentCreateView.as_view(),name='add'),
+    url(r'^apartments/filter/(?P<slug>[\w|\W]+)/$',SearchApartmentView.as_view()),
     #url(r'^apartments/(?P<apt_id>\w+)/$',ApartmentDetailView.as_view()),
-    url(r'^apartments/(?P<slug>[\w-]+)/$',ApartmentDetailView.as_view())
+    url(r'^apartments/(?P<slug>[\w-]+)/update/$',ApartmentUpdateView.as_view(),name='apartment-detail-update'),
+    url(r'^apartments/(?P<slug>[\w-]+)/$',ApartmentDetailView.as_view(),name='apartment-detail'),
+    url(r'^profiles/(?P<username>[\w-]+)/$',ProfileDetailView.as_view(),name='profile-detail'),
 ]
 

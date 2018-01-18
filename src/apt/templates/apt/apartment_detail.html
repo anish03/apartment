@@ -3,8 +3,15 @@
 {% load staticfiles %}
 {%block content%}
 
+<style>
+    .form-control{
+        margin-bottom: 20px;
+        width : 100px;
+    }
+</style>
+
 <div>
-<h3>{{ object.name }}</h3>
+    <h3>{{ object.name }} <a href="update/" style="margin-top:5px; margin-left:15px;" class="form-control btn btn-primary btn-sm">Edit</a></h3>
 
 <div class="container">
     {{ object.city }} || {{ object.address }}
