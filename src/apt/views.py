@@ -16,11 +16,11 @@ class HomeView(TemplateView):
 
     def get_context_data(self,*args,**kwargs):
         #context = super(HomeView,self).get_context_data(*args,**kwargs)
-        context = defaultdict(list)
+        a ,slugs = [], []
         for item in apartment.objects.all():
-
-            context['location'].append([item.name.encode('ascii'),item.lat,item.long])
-        print context['location']
+            a.append([item.name.encode('ascii'),item.lat,item.long])
+            slugs.append(item.slug.encode('ascii'))
+        context = {'location':a, 'slugs':slugs}
         return context
 
 
